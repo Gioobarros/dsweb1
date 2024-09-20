@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+app_name = 'simulaquiz'
 urlpatterns = [
     path('', views.home, name='home'),
     path('login/', views.login, name='login'),
@@ -20,5 +21,5 @@ urlpatterns = [
     path('delete-exam/<int:id>/', views.delete_exam, name='delete-exam'),
     path('delete-question/<int:id>/', views.delete_question, name='delete-question'),
     path('delete-choice/<int:id>/', views.delete_choice, name='delete-choice'),
-    
+
 ]

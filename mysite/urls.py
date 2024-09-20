@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('raiz.urls')),
     path('enquetes/', include ('enquetes.urls')),
+    path('simulaquiz/', include ('simulaquiz.urls')),
 ]
