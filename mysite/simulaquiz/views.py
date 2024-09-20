@@ -9,16 +9,16 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 def home(request):
-    return render(request, 'app/home.html')
+    return render(request, 'home.html')
 
 def login(request):
     if request.method == 'POST':
-        username_email = request.POST.get('username-email')  
+        username_email = request.POST.get('username-email')
         password = request.POST.get('password')
 
         if username_email and password:
             user = authenticate(request, username=username_email, password=password)
-            
+
             if user is None:
                 try:
                     user = User.objects.get(email=username_email)
@@ -73,7 +73,7 @@ def sign_up(request):
     return render(request, 'app/sign-up.html')
 
 def exams(request):
-    query = request.GET.get('q')  
+    query = request.GET.get('q')
     if query:
         exams = Exam.objects.filter(
             Q(title__icontains=query) | Q(theme__title__icontains=query)
@@ -99,9 +99,9 @@ def feedback(request, id):
     exam.save()
 
     questions = exam.question_set.all()
-    
+
     choices_submitted = {f'question{i+1}': request.POST.get(f'question{i+1}') for i in range(len(questions))}
-    
+
     question_status = {}
     score = 0
     score_sum = 0
@@ -109,15 +109,15 @@ def feedback(request, id):
     for question in questions:
         correct_choice = question.choices_set.filter(is_correct=True).first()
         submitted_answer = choices_submitted.get(f'question{question.id}')
-        
+
         if correct_choice and submitted_answer == correct_choice.text:
             question_status[question.id] = 'correct'
             score += question.weight
         else:
             question_status[question.id] = 'incorrect'
-        
+
         score_sum += question.weight
-    
+
     context = {
         'exam': exam,
         'question_status': question_status,
@@ -125,7 +125,7 @@ def feedback(request, id):
         'score': int((score / score_sum) * 100),
         'score_sum': score_sum,
     }
-    
+
     return render(request, 'app/feedback.html', context)
 
 
@@ -178,7 +178,7 @@ def create_question(request, id):
     if request.method == 'POST':
         question_text = request.POST.get('question-text')
         question_weight = request.POST.get('weight')
-                
+
         if question_text and question_weight:
             Question.objects.create(
                 exam = exam,
@@ -199,13 +199,13 @@ def create_choice(request, id):
     if request.method == 'POST':
         choice_text = request.POST.get('choice-text')
         correct = request.POST.get('correct')
-                
+
         if choice_text:
             if correct == None:
                 correct = 0
             else:
                 correct = 1
-            
+
             Choices.objects.create(
                 question = question,
                 text = choice_text,
@@ -235,9 +235,9 @@ def edit_exam(request, id):
         exam.theme = theme
         exam.title = title
         exam.save()
-        
+
         return redirect(reverse('my-exam', args=[exam.id]))
-    
+
     context = {
         'exam': exam,
         'themes': themes,
@@ -252,13 +252,13 @@ def edit_question(request, id):
     if request.method == 'POST':
         question_text = request.POST.get('question-text')
         question_weight = request.POST.get('weight')
-        
+
         question.text = question_text
         question.weight = question_weight
         question.save()
 
         return redirect(reverse('my-exam', args=[question.exam.id]))
-    
+
     context = {
         'question': question,
     }
@@ -284,7 +284,7 @@ def edit_choice(request, id):
         choice.save()
 
         return redirect(reverse('my-exam', args=[choice.question.exam.id]))
-    
+
     context = {
         "choice": choice,
     }

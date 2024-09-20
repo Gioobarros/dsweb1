@@ -4,29 +4,29 @@
 
 {% block content %}
 <div class="content">
-    
+
     <div class="profile">
         {% if user.is_authenticated %}
         <img src="{% static 'images/profile.svg' %}" alt="">
             <span>Olá, <span class="welcome-user">{{ user.username }}</span>!</span>
         {% else %}
-            <a href="{% url 'login' %}"><img src="{% static 'images/profile.svg' %}" alt=""></a>
+            <a href="/login"><img src="{% static 'images/profile.svg' %}" alt=""></a>
             <span>Olá. <span class="welcome-user"></span></span>
         {% endif %}
     </div>
     <nav class="main-nav">
         <ul>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'exams' %}">Simulados</a></li>
-            <li><a href="{% url 'my-exams' %}">Meus simulados</a></li>
-            <li><a href="{% url 'create-exam' %}">Criar simulados</a></li>
+            <li><a href="/exams">Simulados</a></li>
+            <li><a href="/my-exams">Meus simulados</a></li>
+            <li><a href="/create-exam">Criar simulados</a></li>
             {% else %}
-            <li><a href="{% url 'exams' %}">Simulados</a></li>
-            <li><a href="{% url 'login' %}">Entrar</a></li>
-            <li><a href="{% url 'sign-up' %}">Criar conta</a></li>
+            <li><a href="/exams">Simulados</a></li>
+            <li><a href="/login">Entrar</a></li>
+            <li><a href="/sign-up">Criar conta</a></li>
             {% endif %}
-            
-            
+
+
         </ul>
     </nav>
 </div>

@@ -14,6 +14,7 @@ from pathlib import Path
 
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = ['Gioobarros.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'simulaquiz.apps.SimulaquizConfig',
     'raiz.apps.RaizConfig',
     'enquetes.apps.EnquetesConfig',
     'django.contrib.admin',
@@ -134,3 +136,4 @@ MEDIA_ROOT = '/home/Gioobarros/mysite/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = '/home/Gioobarros/mysite/static'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
