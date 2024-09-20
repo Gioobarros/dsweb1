@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">{{ exam.title }}</h1>
+
+    <!-- Exam Metadata -->
+    <div class="exam-header">
+        <p><strong>Matéria:</strong> {{ exam.theme.title }}</p>
+        <p><strong>Usuário:</strong> {{ exam.moderator.user.username }}</p>
+        <p><strong>Envios:</strong> {{ exam.how_many_submissions }}</p>
+        <p><strong>Questões:</strong> {{ exam.question_set.count }}</p>
+        <p><strong>Data:</strong> {{ exam.date_created }}</p>
+    </div>
+
+    <!-- Exam Questions -->
+    {% if exam.question_set.count > 0 %}
+        <form action="{% url 'feedback' exam.id %}" method="POST" class="exam-form">
+            {% csrf_token %}
+            <div class="exam-questions">
+                {% for question in exam.question_set.all %}
+                    <div class="question">
+                        <h3>Questão {{ forloop.counter }}: {{ question.text }}</h3>
+                        <ul>
+                            {% for choice in question.choices_set.all %}
+                                <li>
+                                    <input type="radio" name="question{{ forloop.parentloop.counter }}" id="q{{ forloop.parentloop.counter }}a{{ forloop.counter }}" value="{{ choice.text }}" required> 
+                                    <label for="q{{ forloop.parentloop.counter }}a{{ forloop.counter }}">{{ choice.text }}</label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="submit-button">Enviar</button>
+        </form>
+    {% else %}
+        <p>Ainda não há perguntas neste simulado.</p>
+    {% endif %}
+</div>
+{% endblock content %}

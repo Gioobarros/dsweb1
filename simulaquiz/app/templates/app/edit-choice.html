@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">Editar alternativa</h1>
+    <div class="crud-form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" disabled value="{{ choice.question.text }}">
+            <input type="text" name="choice-text" placeholder="Adicione a alternativa" value="{{ choice.text }}" required>
+            <div class="correct-checkbox">
+                <label for="is-correct">Alternativa Correta</label>
+                {% if choice.is_correct %}
+                    <input type="checkbox" name="correct" value="yes" id="is-correct" checked>
+                {% else %}
+                    <input type="checkbox" name="correct" value="yes" id="is-correct">
+                {% endif %}
+            </div>
+
+            <div class="edit-or-delete">
+                <a href="{% url 'delete-choice' choice.id %}"><button>Deletar</button></a>
+                <button type="submit">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>    
+{% endblock content %}

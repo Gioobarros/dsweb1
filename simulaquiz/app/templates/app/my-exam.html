@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">{{ exam.title }}</h1>
+
+    <!-- Exam Metadata -->
+    <div class="exam-header">
+        <div class="header-theme">
+            <p><strong>Matéria:</strong> {{ exam.theme.title }}</p>
+            <a href="{% url 'edit-exam' exam.id %}">
+                <img src="{% static 'images/three-dots-white.svg' %}" alt="">
+            </a>
+        </div>
+        <p><strong>Usuário:</strong> {{ exam.moderator.user.username }}</p>
+        <p><strong>Envios:</strong> {{ exam.how_many_submissions }}</p>
+        <p><strong>Questões:</strong> {{ exam.question_set.count }}</p>
+        <p><strong>Data:</strong> {{ exam.date_created }}</p>
+    </div>
+    
+    <!-- Exam Questions -->
+    <div class="exam-questions">
+        {% for question in exam.question_set.all %}
+            <div class="question">
+                <div class="header-question">
+                    <h3>Questão {{ forloop.counter }}: {{ question.text }}</h3>
+                    <a href="{% url 'edit-question' question.id %}">
+                        <img src="{% static 'images/three-dots-blue.svg' %}" alt="edit question"> 
+                    </a>
+                </div>
+                <ul>
+                    {% for choice in question.choices_set.all %}
+                        <li>
+                            <input type="radio" id="q{{ forloop.parentloop.counter }}a{{ forloop.counter }}" disabled> 
+                            <label for="q{{ forloop.parentloop.counter }}a{{ forloop.counter }}">{{ choice.text }}</label>
+                            <a href="{% url 'edit-choice' choice.id %}"><img src="{% static 'images/three-dots-blue.svg' %}" alt="edit choice"></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'create-choice' question.id %}" class="create-choice-btn">Adicione uma nova alternativa</a>
+            </div>
+        {% endfor %}
+
+    <a href="{% url 'create-question' exam.id %}" class="create-question-btn">Adicione uma nova questão</a>
+</div>
+{% endblock content %}

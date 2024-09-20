@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">Criar uma questão</h1>
+    <div class="crud-form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" value="{{ exam.title }}" disabled>
+            <input type="text" name="question-text" placeholder="Adicione uma questão" required>
+            <input type="number" name="weight" min="1" placeholder="Peso da questão" required dis>
+            <button type="submit">Criar</button>
+        </form>
+    </div>
+</div>    
+{% endblock content %}

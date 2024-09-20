@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">Feedback</h1>
+    <p>Sua pontuação foi: {{ score }}% ({{ score_sum }} pontos)</p>
+
+    <div class="exam-questions">
+        {% for question in exam.question_set.all %}
+            {% with question_status|get_item:question.id as status %}
+                <div class="question {{ status }}">
+                    <h3>Questão {{ forloop.counter }}: {{ question.text }}</h3>
+                    <ul>
+                        {% for choice in question.choices_set.all %}
+                            <li>
+                                <input type="radio" name="question{{ forloop.parentloop.counter }}" id="q{{ forloop.parentloop.counter }}a{{ forloop.counter }}" value="{{ choice.text }}" {% if choices_submitted|get_item:question.id == choice.text %} checked {% endif %} disabled> 
+                                <label for="q{{ forloop.parentloop.counter }}a{{ forloop.counter }}">{{ choice.text }}</label>
+                                {% if choice.is_correct %}
+                                    <img src="{% static 'images/correct-choice.svg' %}" alt="correct-choice">
+                                {% endif %}
+                                {% if status == 'correct' and choice.text == choices_submitted|get_item:question.id %}
+                                    <img src="{% static 'images/correct-answer.svg' %}" alt="correct-answer">
+                                {% elif status == 'incorrect' %}
+                                    {% if choice.text == choices_submitted|get_item:question.id %}
+                                        <img src="{% static 'images/incorrect-answer.svg' %}" alt="incorrect-answer">
+                                        <span style="color: red;">Alternativa incorreta!</span>
+                                    {% endif %}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    </div>
+
+    <div class="button-to-home">
+        <a href="{% url 'home' %}"><img src="{% static 'images/button-to-home.svg' %}" alt=""></a>
+    </div>
+</div>
+{% endblock content %}

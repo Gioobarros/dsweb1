@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">Meus simulados</h1>
+    <div class="exams-grid">
+        {% for exam in exams %}
+            <a href="{% url 'my-exam' exam.id %}" class="exam-card">
+                <h2>{{ exam.title }}</h2>
+                <p class="exam-details"><span>Matéria:</span> {{ exam.theme.title }}</p>
+                <p class="exam-details"><span>Usuário:</span> {{ exam.moderator.user.username }}</p>
+                <p class="exam-details"><span>Envios:</span> {{ exam.how_many_submissions }}</p>
+                <p class="exam-details"><span>Questões:</span> {{ exam.question_set.count }}</p>
+                <p class="exam-details"><span>Data:</span> {{ exam.date_created }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">Simulados</h1>
+    <div class="search-bar">
+        <form action="{% url 'exams' %}" method="get" class="search-form" >
+            <input type="text" name="q" placeholder="Pesquise por título ou matéria" value="{{ request.GET.q }}">
+            <button type="submit" class="botao" style="border: none; background: none; padding: 0; cursor: pointer;">
+                <img src="{% static 'images/search-icon.svg' %}" alt="search icon">
+            </button>
+        </form>
+    </div>
+    <div class="exams-grid">
+        {% for exam in exams %}
+            <a href="{% url 'exam' exam.id %}" class="exam-card">
+                <h2>{{ exam.title }}</h2>
+                <p class="exam-details"><span>Matéria:</span> {{ exam.theme.title }}</p>
+                <p class="exam-details"><span>Usuário:</span> {{ exam.moderator.user.username }}</p>
+                <p class="exam-details"><span>Envios:</span> {{ exam.how_many_submissions }}</p>
+                <p class="exam-details"><span>Questões:</span> {{ exam.question_set.count }}</p>
+                <p class="exam-details"><span>Data:</span> {{ exam.date_created }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

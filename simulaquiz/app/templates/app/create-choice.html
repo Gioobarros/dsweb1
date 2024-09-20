@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-name">Adicionar uma alternativa</h1>
+    <div class="crud-form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" value="{{ question.text }}" disabled>
+            <input type="text" name="choice-text" placeholder="Adicione a alternativa" required>
+            <div class="correct-checkbox">
+                <label for="is-correct">Alternativa correta</label>
+                <input type="checkbox" name="correct" value="yes" id="is-correct">
+            </div>
+            <button type="submit">Criar</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

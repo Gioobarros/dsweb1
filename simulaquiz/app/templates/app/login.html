@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <h1 class="page-name">Entrar</h1>
+    <div class="auth-form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Email ou usuário" name="username-email">
+            <input type="password" placeholder="Senha" name="password">
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+    <div class="auth-message">
+        <span>Ainda não possui uma conta? <a href="{% url 'sign-up' %}">Faça seu cadastro aqui</a></span>
+    </div>
+</div>
+{% endblock content %}

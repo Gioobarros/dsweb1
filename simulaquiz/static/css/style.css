@@ -1,0 +1,506 @@
+/* Base Styles */
+:root {
+    --primary-color: #Ed5cb1;
+    --secondary-color: #8c0ff2;
+    --black-color: #000;
+    --white-color: #FFF;
+    --transparent-gray: rgba(217, 217, 217, 0.25);
+    --correct-color: #28a745;
+    --incorrect-color: #dc3545;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.text-dark {
+    color: var(--black-color);
+}
+
+.text-light {
+    color: var(--white-color);
+}
+
+.content {
+    margin-left: 10%; /* ajuste o valor de acordo com a largura do sidebar */
+    padding: 20px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    color: var(--white-color);
+}
+
+.hamburguer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.hamburguer .line1,
+.hamburguer .line2,
+.hamburguer .line3 {
+    width: 28px;
+    height: 2px;
+    background-color: var(--white-color);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Styles for active state */
+.hamburguer.active .line1 {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburguer.active .line2 {
+    opacity: 0;
+}
+
+.hamburguer.active .line3 {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.sidebar {
+    position: fixed;
+    top: 49px; 
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    z-index: 1000;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    color: var(--white-color);
+    text-align: center;
+}
+
+.sidebar a:hover {
+    background-color: var(--secondary-color);
+}
+
+.close-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.close-btn .line1,
+.close-btn .line2,
+.close-btn .line3 {
+    width: 28px;
+    height: 2px;
+    background-color: var(--white-color);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.close-btn.active .line1 {
+    transform: rotate(-45deg) translate(-5px, 5px);
+}
+
+.close-btn.active .line2 {
+    opacity: 0;
+}
+
+.close-btn.active .line3 {
+    transform: rotate(45deg) translate(-5px, -5px);
+}
+
+.page-name {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    text-align: center;
+}
+
+/* HOME */
+.profile {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.welcome-user {
+    color: var(--secondary-color);
+}
+
+main .gio {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-nav {
+    margin: 40px 0;
+}
+
+.main-nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.main-nav ul li {
+    width: 225px;
+    text-align: center;
+}
+
+.main-nav ul li a {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+    transition: background-color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    background-color: var(--primary-color);
+}
+
+/* AUTHETICATION */
+.auth-form {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-form form {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+}
+
+.auth-form form input {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    outline: none;
+    background-color: var(--transparent-gray);
+    border-radius: 8px;
+    border: 1px solid var(--secondary-color);
+}
+
+.auth-form form button {
+    cursor: pointer;
+    margin: 25px 0;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: none;
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+}
+
+.auth-message {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-message a {
+    color: var(--secondary-color);
+}
+
+
+.exams-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 768px) {
+    .exams-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.search-bar {
+    width: 100%;
+    margin: 15px 0;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    background-color: var(--transparent-gray);
+    border-radius: 15px;
+    border: 1px solid var(--secondary-color);
+    justify-content: space-between;
+}
+
+.search-bar input {
+    width: 100%;
+    margin-left: 10px;
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+.search-form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+.exam-card {
+    background-color: var(--secondary-color); /* Fundo com a cor secundária */
+    color: var(--white-color); /* Texto branco */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-decoration: none; /* Remove sublinhado do link */
+    display: block; /* Garante que o link ocupe todo o card */
+    transition: transform 0.2s; /* Animação de hover */
+}
+
+.exam-card:hover {
+    transform: translateY(-5px); /* Efeito de elevação no hover */
+}
+
+.exam-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+}
+
+.exam-card .exam-details {
+    font-size: 0.9em;
+    margin: 5px 0;
+}
+
+.exam-card .exam-details span {
+    font-weight: bold;
+}
+
+/* Página de Detalhes do Exame */
+.exam-header {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.exam-header p {
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.exam-questions {
+    margin-top: 20px;
+}
+
+.exam-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.question {
+    padding: 15px;
+    border: 2px solid var(--secondary-color);
+    background-color: var(--transparent-gray);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.question h3 {
+    margin-bottom: 10px;
+}
+
+.question ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.question ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.question input[type="radio"] {
+    margin-right: 10px;
+}
+
+.question label {
+    font-size: 1em;
+}
+
+.submit-button {
+    cursor: pointer;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: none;
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: var(--primary-color)
+}
+
+/* FEEDBACK 
+.question.correct {
+    border: 2px solid var(--correct-color);
+}
+
+.question.incorrect {
+    border: 2px solid var(--incorrect-color);
+}*/
+
+.button-to-home {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-to-home a {
+    background-color: var(--secondary-color);
+    padding: 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.button-to-home a:hover {
+    background-color: var(--primary-color)
+}
+
+/* MY EXAM(S) */
+.create-choice-btn,
+.create-question-btn {
+    display: block;
+    padding: 10px 15px;
+    text-align: center;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.create-choice-btn:hover,
+.create-question-btn:hover {
+    background-color: var(--primary-color);
+}
+
+.header-question,
+.header-theme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* CRUD form */
+.crud-form {
+    display: flex;
+    justify-content: center;
+}
+
+.crud-form form{
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+}
+
+.crud-form form input,
+.crud-form form select {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    outline: none;
+    background-color: var(--transparent-gray);
+    border-radius: 8px;
+    border: 1px solid var(--secondary-color);
+}
+
+.crud-form form button {
+    cursor: pointer;
+    margin: 25px 0;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: none;
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+}
+
+.correct-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.correct-checkbox input[type="checkbox"] {
+    margin: 0;
+}
+
+.edit-or-delete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 50px;
+}
+
+.message.success {
+    border: 1px solid #c3e6cb;
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.message.error {
+    border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.message span {
+    padding: 20px;
+}
